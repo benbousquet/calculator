@@ -4,16 +4,45 @@
 #include <ctype.h>
 
 bool done = false;
+char operation;
 float value;
 
-main() {
+float calculate(char operation) {
+    float constant;
+    // Determine which operation it is then calculate
+    switch(operation) {
+        case 'a':
+            printf("What do value you want to add to %f: ", value);
+            scanf("%f",&constant);
+            value += constant;
+            break;
+        case 's':
+            printf("What value do you want to subtract from %f: ", value);
+            scanf("%f",&constant);
+            value -= constant;
+            break;
+        case 'm':
+            printf("What value do you want to multiply by %f: ", value);
+            scanf("%f",&constant);
+            value *= constant;
+            break;  
+        case 'd':
+            printf("What value do you want to multiply by %f: ", value);
+            scanf("%f",&constant);
+            value /= constant;
+            break;
+    }
+    // sets operation to nothing
+    
+    return value;
+}
+
+main(void) {
     printf("Lets do some math!\n");
     printf("Enter a value to begin with: ");
-    float value;
     scanf("%f", &value);
     printf("\n");
     while(!done) {
-        char operation;
         // While not valid operation
         while(operation != 's' && operation != 'd' && operation != 'a' && operation != 'm') {
             char input[10];
@@ -33,37 +62,12 @@ main() {
             } else if(strcmp(input,"divide") == 0) {
                 operation = 'd';
             } else if(strcmp(input,"done") == 0) {
-                return 0;
+                return;
             }
-
+            // calculate answer
         }
-        float constant;
-        switch(operation) {
-            case 'a':
-                printf("What do value you want to add to %f: ", value);
-                scanf("%f",&constant);
-                value += constant;
-                printf("\nResult is: %f\n", value);
-                break;
-            case 's':
-                printf("What value do you want to subtract from %f: ", value);
-                scanf("%f",&constant);
-                value -= constant;
-                printf("\nResult is: %f\n", value);
-                break;
-            case 'm':
-                printf("What value do you want to multiply by %f: ", value);
-                scanf("%f",&constant);
-                value *= constant;
-                printf("\nResult is: %f\n", value);
-                break;
-            case 'd':
-                printf("What value do you want to multiply by %f: ", value);
-                scanf("%f",&constant);
-                value /= constant;
-                printf("\nResult is: %f\n", value);
-                break;
-        }
-        operation = NULL;
+        float answer = calculate(operation);
+        printf("\nResult is: %f\n", answer);
+        operation = 'n';
     }
 }
